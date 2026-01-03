@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expenses</title>
+  <style>
+    thead > tr {
+      background-color: darkcyan;
+      color: white;
+    }
+    tbody > tr:nth-child(even) {
+      background-color: lightcyan;
+    }
+    tbody > tr:nth-child(odd) {
+      background-color: lightcyan;
+    }
+    tfoot > tr {
+      background-color: darkcyan;
+      color: white;
+    }
+    .highlight {
+      background-color: lightcoral !important;
+    }
+    /* Center the table and buttons */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 30px;
+      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+    }
+    #buttons {
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: darkcyan;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #007a7a;
+    }
+    table {
+      margin: 0 auto;
+    }
+    /* Modal Styling */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .modal-content input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .modal-content button {
+      width: 100%;
+      margin-top: 10px;
+      background-color: darkcyan;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .modal-content button:hover {
+      background-color: #007a7a;
+    }
+    .modal-content .cancel-btn {
+      background-color: lightcoral;
+    }
+    .modal-content .cancel-btn:hover {
+      background-color: #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Island Weekly Expenses</h1>
+
+  <div id="buttons">
+    <button onclick="toggleTable()">Show/Hide Expenses</button>
+    <button onclick="openModal()">Add Expense Row</button>
+    <button onclick="recalculateGrandTotal()">Recalculate Total</button>
+  </div>
+
+  <table id="expenseTable" border="1" style="display: none;">
+    
+    <thead>
+      <tr>
+        <th rowspan="2">Category</th>
+        <th colspan="2">Cost Details</th>
+        <th rowspan="2">Total</th>
+      </tr>
+      <tr>
+        <th>Item</th>
+        <th>Cost per Day</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Your predefined rows here (no change needed) -->
+      <tr>
+        <td rowspan="3">Accommodation</td>
+        <td>Hotel</td>
+        <td>$150/day</td>
+        <td rowspan="3">$1,750</td>
+      </tr>
+      <tr>
+        <td>Resort</td>
+        <td>$200/day</td>
+      </tr>
+      <tr>
+        <td>Guest House</td>
+        <td>$100/day</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Meals</td>
+        <td>Restaurants</td>
+        <td>$40/day</td>
+        <td rowspan="2">$420</td>
+      </tr>
+      <tr>
+        <td>Street Food</td>
+        <td>$20/day</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Transportation</td>
+        <td>Rental Car</td>
+        <td>$50/day</td>
+        <td rowspan="2">$350</td>
+      </tr>
+      <tr>
+        <td>Public Transport</td>
+        <td>$10/day</td>
+      </tr>
+      <tr>
+        <td rowspan="4">Activities</td>
+        <td>Water Sports</td>
+        <td>$30/day</td>
+        <td rowspan="4">$280</td>
+      </tr>
+      <tr>
+        <td>Guided Tours</td>
+        <td>$25/day</td>
+      </tr>
+      <tr>
+        <td>Hiking</td>
+        <td>$15/day</td>
+      </tr>
+      <tr>
+        <td>Relaxation (Spa, etc.)</td>
+        <td>$20/day</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>Grand Total</strong></td>
+        <td id="grandTotal"><strong>$2800</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- Modal for adding new row -->
+  <div id="addRowModal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Expense</h3>
+      <input type="text" id="categoryInput" placeholder=" Enter Category" required>
+      <input type="text" id="itemInput" placeholder="Enter Item" required>
+      <input type="text" id="costPerDayInput" placeholder="Enter Cost per Day" required>
+      <input type="text" id="totalInput" placeholder="Total (e.g. $350)" />
+      <button onclick="addRowFromModal()">Add Row</button>
+      <button onclick="closeModal()" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleTable() {
+      const table = document.getElementById("expenseTable");
+      if (table.style.display === "none") {
+        table.style.display = "table";
+      } else {
+        table.style.display = "none";
+      }
+    }
+
+    function openModal() {
+      document.getElementById("addRowModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("addRowModal").style.display = "none";
+    }
+
+    function addRowFromModal() {
+      const category = document.getElementById("categoryInput").value.trim();
+      const item = document.getElementById("itemInput").value.trim();
+      const costPerDay = document.getElementById("costPerDayInput").value.trim();
+      const total = document.getElementById("totalInput").value.trim();
+
+      if (!category || !item || !costPerDay || !total) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      const tbody = document.getElementById("expenseTable").getElementsByTagName('tbody')[0];
+      const newRow = tbody.insertRow();
+
+      let categoryCell = newRow.insertCell(0);
+      let itemCell = newRow.insertCell(1);
+      let costCell = newRow.insertCell(2);
+      let totalCell = newRow.insertCell(3);
+
+      categoryCell.innerText = category;
+      itemCell.innerText = item;
+      costCell.innerText = costPerDay;
+      totalCell.innerText = total;
+
+      closeModal();
+      recalculateGrandTotal();
+      
+      // Clear form for next time
+      document.getElementById("categoryInput").value = "";
+      document.getElementById("itemInput").value = "";
+      document.getElementById("costPerDayInput").value = "";
+      document.getElementById("totalInput").value = "";
+    }
+
+    function recalculateGrandTotal() {
+      const table = document.getElementById("expenseTable");
+      const tbody = table.getElementsByTagName('tbody')[0];
+      const rows = tbody.getElementsByTagName('tr');
+      let total = 0;
+
+      for (let row of rows) {
+        let totalCell = row.cells[3];
+        if (totalCell) {
+          let amountText = totalCell.innerText.replace(/[^0-9.]/g, ''); // Remove $ and commas
+          let amount = parseFloat(amountText);
+          if (!isNaN(amount)) {
+            total += amount;
+          }
+        }
+      }
+
+      document.getElementById("grandTotal").innerHTML = `<strong>$${total}</strong>`;
+    }
+  </script>
+
+</body>
+</html>
+
+

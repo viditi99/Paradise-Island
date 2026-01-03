@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paradise Island</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color:  #f5deb3;
+    }
+    #beachCarousel {
+  margin-top: 0;      /* remove top gap of carousel */
+}
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color:#0d6efd;
+      color: white;
+      cursor: pointer;
+      padding: 12px 18px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+  </style>
+
+
+<style>
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider itself */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px; width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  /* When checked */
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  /* Night mode styles */
+  .night-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  .night-mode .carousel {
+    background-color: #222;
+  }
+  
+  .night-mode h2, .night-mode h3, .night-mode p {
+    color: #e0e0e0;
+  }
+  </style>
+
+<style>
+   .welcome-heading {
+    position: absolute;
+    top: 20px;              /* distance from top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;           /* make sure it's above carousel */
+  }
+
+  .welcome-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    font-family: "Georgia", serif;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .welcome-text:hover {
+    transform: scale(1.05);
+  }
+
+  .package-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+}
+
+.package-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.package-card .card-body h3 {
+  font-weight: bold;
+}
+
+.package-card ul li {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.package-card:hover .btn {
+  transform: scale(1.1);
+}
+
+.card {
+  background-color: var(--bs-card-bg);
+  color: var(--bs-body-color); /* ensures text auto adjusts */
+}
+
+.card .card-title {
+  color: var(--bs-heading-color, inherit);
+  font-weight: 600;
+}
+
+.card .card-text {
+  color: var(--bs-body-color); /* auto adjusts for light/dark mode */
+}
+
+/* Force readable text in light & dark mode */
+.dark-mode-text {
+  color: #212529 !important; /* default Bootstrap dark text */
+}
+
+body.bg-dark .dark-mode-text {
+  color: #f8f9fa !important; /* switch to light text in dark mode */
+}
+</style>
+</head>
+
+<body> 
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#home">
+        <img src="Paradise Island.png" alt="Paradise Island Logo" height="60" class="me-2"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+
+           <li class="nav-item">
+          <a class="nav-link active" href="#home">Home</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#act">Activities</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#att">Attractions</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#res">Restaurants</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#tra">Travel Tips</a>
+          </li>
+          
+           <li class="nav-item ms-lg-3">
+          <a href="Booking.html" class="btn btn-outline-light fw-bold px-3">Book Now</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="Expenses.html">Expenses</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+ </nav>
+
+  <div style="position: relative;">
+    <label class="switch" style="position: absolute; top: 10px; right: 20px; z-index: 1000;">
+      <input type="checkbox" id="nightModeToggle">
+      <span class="slider round"></span>
+    </label>
+
+  <!-- Welcome Section -->
+   <div class="welcome-heading text-center">
+  <h1 class="welcome-text">Your Passport to Unforgettable Memories!</h1>
+</div>
+
+    <div>
+      <div id="beachCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="image1.jpg" class="d-block w-100" style="height:600px; width:100vw; object-fit:cover;" alt="Beach 1">
+          </div>
+          <div class="carousel-item">
+            <img src="image3.jpg" class="d-block w-100" style="height:600px; width:100vw; object-fit:cover;" alt="Beach 3">
+          </div>
+          <div class="carousel-item">
+            <img src="image4.jpg" class="d-block w-100" style="height:600px; width:100vw; object-fit:cover;" alt="Beach 4">
+          </div>
+        </div>
+    
+        <button class="carousel-control-prev" type="button" data-bs-target="#beachCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#beachCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+    
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#beachCarousel" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#beachCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#beachCarousel" data-bs-slide-to="2"></button>
+        </div>
+      </div>
+    </div>
+    <!-- Carousel End --->
+
+  <!-- Rest of your content -->
+  <div class="container">
+    <h2 class="text-secondary">Destination Overview</h2>
+    <p><em>Paradise Island</em> is a tropical paradise located in the heart of the Pacific Ocean. With its crystal-clear waters and lush landscapes, it's a dream destination for travelers seeking <b>relaxation</b> and <strong>adventure</strong>.</p>
+    <p>As you step onto the shores, you are greeted by the warm embrace of the tropical sun and the rhythmic lull of the ocean waves.</p> 
+    <p>Paradise Island is a haven where crystal-clear waters meet white sandy beaches. Perfect for adventure seekers and relaxation lovers alike, this island promises unforgettable memories in every sunset and every wave. It is a breathtaking tropical destination known for its stunning beaches, luxurious resorts, and crystal-clear waters.
+      It offers a perfect blend of relaxation and adventure, making it a dream spot for travelers seeking an unforgettable getaway.</p>
+  </div>
+  
+  <div id="act" class="container my-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2 class="text-secondary mt-4">Activities</h2>
+        <p>
+          Dive into an underwater adventure with <b>snorkeling</b> in the vibrant coral reefs, teeming with colorful marine life. 
+          Spend your afternoons <b>relaxing</b> on the pristine white-sand beaches, soaking up the tropical sun and enjoying the gentle ocean breeze. 
+          For the explorers at heart, venture deep into the island’s lush <b>Kayaking</b>, often available on most islands with coastal access.
+          Thrill-seekers can indulge in exciting <b>water sports</b> like kayaking, paddleboarding, and jet-skiing across the crystal-clear lagoons. 
+          Whether you crave adventure or serenity, Paradise Island offers unforgettable experiences for every traveler.
+        </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="image5.jpg" width="80%" height="300"
+        alt="Activities Paradise" class="img-fluid rounded-3 shadow">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container my-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center">
+        <img src="image6.jpg" alt="Nearby Attractions Paradise" class="img-fluid rounded-3 shadow" width="80%" height="300">
+      </div>
+      <div class="col-md-6"> 
+        <h2 id="att" class="text-secondary mt-4">Nearby Attractions</h2>
+        <p>
+          Discover the breathtaking beauty of <b>Paradise Falls</b>, a majestic waterfall surrounded by lush greenery and scenic hiking trails. 
+          Wander through the charming streets of the <b>Old Town District</b>, filled with vibrant local markets, artisan shops, and cozy cafes. 
+          Don't miss a visit to the historic <b>Seaside Lighthouse</b>, offering panoramic views of the endless blue horizon. 
+          Adventure seekers can embark on boat tours to nearby hidden islands, where secluded beaches and crystal-clear waters await exploration.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="container my-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2 id="res" class="text-secondary mt-4">Recommended Restaurants</h2>
+        <p>
+          Savor the freshest flavors of the ocean at <b>Seafood Haven</b>, where the daily catch is served in an elegant oceanfront setting. 
+          For a vibrant culinary experience, visit <b>Tropical Bites</b>, offering a delightful fusion of local and international cuisines with breathtaking outdoor views. 
+          Those craving hearty island flavors will love <b>Island Grill</b>, renowned for its grilled specialties and lively ambiance with live music performances. 
+          Each dining spot promises an unforgettable taste of Paradise’s rich culinary scene.
+        </p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Restaurants Paradise" class="img-fluid rounded-3 shadow">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Travel Packages Section -->
+
+  <div id="packages" class="container my-5">
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-8">
+      <h2 class="fw-bold">Explore Packages</h2>
+      <p>Choose from budget, premium, and luxury packages tailored for you</p>
+    </div>
+    <div class="col-md-4 text-end">
+      <a href="Booking.html" class="btn btn-warning btn-lg">Book Now</a>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4"></div>
+
+    <!-- Basic Package -->
+    <div class="col">
+      <div class="card h-100 shadow-lg border-0 package-card">
+        <div class="card-body text-center">
+          <h5 class="card-title text-primary fw-bold">Basic</h5>
+          <h3 class="text-dark">$499</h3>
+          <p class="card-text">3 Days / 2 Nights</p>
+          <ul class="list-unstyled">
+            <li>✔ Standard Hotel Stay</li>
+            <li>✔ Island Tour</li>
+            <li>✔ Complimentary Breakfast</li>
+          </ul>
+          <a href="Booking.html" class="btn btn-outline-primary">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Premium Package -->
+    <div class="col">
+      <div class="card h-100 shadow-lg border-0 package-card">
+        <div class="card-body text-center">
+          <h5 class="card-title text-success fw-bold">Premium</h5>
+          <h3 class="text-dark">$899</h3>
+          <p class="card-text">5 Days / 4 Nights</p>
+          <ul class="list-unstyled">
+            <li>✔ 4-Star Hotel Stay</li>
+            <li>✔ Guided Adventure Tour</li>
+            <li>✔ All Meals Included</li>
+          </ul>
+          <a href="Booking.html" class="btn btn-success">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Luxury Package -->
+    <div class="col">
+      <div class="card h-100 shadow-lg border-0 package-card">
+        <div class="card-body text-center">
+          <h5 class="card-title text-warning fw-bold">Luxury</h5>
+          <h3 class="text-dark">$1499</h3>
+          <p class="card-text">7 Days / 6 Nights</p>
+          <ul class="list-unstyled">
+            <li>✔ 5-Star Resort Stay</li>
+            <li>✔ Private Yacht Tour</li>
+            <li>✔ Personal Guide & Spa</li>
+          </ul>
+          <a href="Booking.html" class="btn btn-warning text-white">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <div class="container my-5">
+      <h2 id="tra" class="text-secondary mb-4">Travel Tips</h2>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Best Time to Visit</h5>
+        <p class="card-text">Year-round, but peak season is June to September. Visit on weekdays for fewer crowds.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Currency</h5>
+        <p class="card-text">Local currency: <em>Paradise Dollars (PD)</em>. Major cards accepted.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Language</h5>
+        <p class="card-text">English and <em>Paradisean Creole</em> are common. Learn a few phrases!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Weather Conditions</h5>
+        <p class="card-text">Mostly sunny, occasional showers. Carry a raincoat or umbrella. Check the forecast before outdoor activities. Carry sunscreen, sunglasses.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Emergency Numbers</h5>
+        <p class="card-text">
+          Tourist Helpline: <strong>1800-123-456</strong> (available 24/7 for assistance in English and Creole). 
+          <br>
+          Keep a written copy of hotel contacts, embassy numbers, and local emergency services with you at all times.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Local Etiquette</h5>
+        <p class="card-text">
+          Respect local customs — dress modestly near villages and religious sites. 
+          <br>
+          Tipping is not mandatory but welcomed for excellent service (around 5–10%).
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- Weather Widget Start -->
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-lg-10">
+
+      <div class="p-5 bg-light rounded-4 shadow-lg">
+        <div class="row align-items-center">
+    
+    <!-- Left Side: Text -->
+    <div class="col-md-6 mb-4 mb-md-0">
+      <h2 class="text-primary fw-bold">Plan Your Trip Smartly!</h2>
+      <p class="dark-mode-text"> 
+        Stay updated with the latest weather conditions before you head to Paradise Island. 
+        Check forecasts, temperatures, and prepare for a perfect adventure!</p>
+    </div>
+    
+    <!-- Right Side: Weather Widget -->
+    <div class="col-md-6 text-center">
+
+      <a class="weatherwidget-io"
+      href="https://forecast7.com/en/47d53n52d89/paradise/"
+      data-label_1="PARADISE"
+      data-label_2="WEATHER"
+      data-icons="Climacons Animated"
+      data-theme="weather_one">
+      PARADISE WEATHER
+    </a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+!function(d,s,id){
+var js,fjs=d.getElementsByTagName(s)[0];
+if(!d.getElementById(id)){
+js=d.createElement(s);
+js.id=id;
+js.src='https://weatherwidget.io/js/widget.min.js';
+fjs.parentNode.insertBefore(js,fjs);
+}
+}(document,'script','weatherwidget-io-js');
+</script>
+
+    <hr class="my-4"/>
+    <div class="container">
+      <h2>"Your Guide to Paradise Island"</h2>
+      <div class="mb-3">
+
+        <!-- Include Leaflet CSS and JS (in <head>) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Div to hold the map (in <body>) -->
+<div id="map" style="height: 400px; width: 100%; border-radius: 10px; border: 2px solid #ccc; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);"></div>
+
+<!-- Script to initialize the map -->
+<script>
+  // Create the map and set view to Paradise Island
+  var map = L.map('map').setView([25.0827, -77.3188], 15);  // Zoom 15 = close up
+
+  // Add OpenStreetMap tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Add a marker at Paradise Island
+  L.marker([25.0827, -77.3188]).addTo(map)
+    .bindPopup('<b>Paradise Island</b><br>Bahamas')
+    .openPopup();
+</script>
+    
+      </div>
+      <p class="lead">
+        Whether you seek <i>adventure</i> or <i>relaxation</i>,
+        <strong>Paradise Island</strong> offers an unforgettable experience for every traveler.
+      </p>
+      <button onclick="showThanks()" class="btn btn-outline-primary">Thank You Message</button>
+    </div>
+    <button onclick="scrollToTop()" id="topBtn" title="Go to top">↑</button>
+
+    <hr class="my-4"/>
+    <footer class="bg-dark text-white text-center p-3">
+      <p class="mb-1">&copy; 2023 Paradise Island. All rights reserved.</p>
+      <a href="tel:475674674674" class="text-light me-3">Call Us</a>
+      <a href="mailto:abc@gmail.com" class="text-light">Email Us</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function confirmBooking() {
+        return confirm("Are you sure you want to proceed to booking?");
+      }
+    </script>
+    
+    <script>
+      function showThanks() {
+        alert("Thanks for visiting Paradise Island!");
+      }
+      const topBtn = document.getElementById("topBtn");
+
+      window.onscroll = function () {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          topBtn.style.display = "block";
+        } else {
+          topBtn.style.display = "none";
+        }
+      };
+
+      function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script> 
+
+<script>
+  const nightToggle = document.getElementById('nightModeToggle');
+  nightToggle.addEventListener('change', () => {
+      document.body.classList.toggle('night-mode');
+  });
+  </script>
+  </body>
+</html>

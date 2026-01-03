@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paradise Island</title>
+    
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+      #topBtn {
+        display: none;
+        position: fixed;
+        bottom: 40px;
+        right: 30px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #0d6efd;
+        color: white;
+        cursor: pointer;
+        padding: 12px 18px;
+        border-radius: 50%;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    
+    <!-- Header Section -->
+    <div class="container text-center mt-4">
+      <h1 id="top" class="text-primary">Welcome to the Paradise Island!</h1>
+      <div class="mb-3">
+        <a href="Expenses.html" class="btn btn-outline-info me-2">Expense Details</a>
+        <a href="Booking.html" class="btn btn-outline-success" title="Click to go to booking page">Book your Holiday</a>
+      </div>
+      <img src="download.jpg" class="img-fluid rounded mb-4" style="max-width: 500px;" alt="People enjoying on the beach of Paradise Island" title="Beaches of Paradise Island" />
+      
+      <!-- Section Navigation -->
+      <div class="d-flex justify-content-center gap-3 mb-4">
+        <a href="#act" class="btn btn-primary">Activities</a>
+        <a href="#att" class="btn btn-warning">Attractions</a>
+        <a href="#res" class="btn btn-info">Restaurants</a>
+        <a href="#tra" class="btn btn-success">Travel Tips</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <h2 class="text-secondary">Destination Overview</h2>
+      <p><em>Paradise Island</em> is a tropical paradise located in the heart of the Pacific Ocean. With its crystal-clear waters and lush landscapes, it's a dream destination for travelers seeking <b>relaxation</b> and <strong>adventure</strong>.</p>
+      <p>As you step onto the shores, you are greeted by the warm embrace of the tropical sun and the rhythmic lull of the ocean waves.</p>
+
+      <h2 id="act" class="text-secondary mt-5">Activities</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Snorkeling</b> in the vibrant coral reefs</li>
+        <li class="list-group-item"><b>Relaxing</b> on pristine white-sand beaches</li>
+        <li class="list-group-item"><b>Exploring</b> the island's tropical rainforests</li>
+        <li class="list-group-item"><b>Water sports</b> like kayaking and paddleboarding</li>
+      </ul>
+
+      <h2 id="att" class="text-secondary mt-5">Nearby Attractions</h2>
+      <ol class="list-group list-group-numbered">
+        <li class="list-group-item"><b>Visit</b> the historic <em>Paradise Temple</em></li>
+        <li class="list-group-item"><b>Take</b> a boat tour to <em>Turtle Bay</em></li>
+        <li class="list-group-item"><b>Explore</b> the local markets and sample tropical fruits</li>
+        <li class="list-group-item"><b>Hike</b> to the <em>Paradise Viewpoint</em></li>
+      </ol>
+
+      <h2 id="res" class="text-secondary mt-5">Recommended Restaurants</h2>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <b>Seafood Haven</b>
+          <ul>
+            <li>Fresh catch of the day</li>
+            <li>Oceanfront dining experience</li>
+          </ul>
+        </li>
+        <li class="list-group-item">
+          <b>Tropical Bites</b>
+          <ul>
+            <li>Local and international cuisine</li>
+            <li>Outdoor seating with panoramic views</li>
+          </ul>
+        </li>
+        <li class="list-group-item">
+          <b>Island Grill</b>
+          <ul>
+            <li>Grilled specialties with island flavors</li>
+            <li>Lively atmosphere with live music</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 id="tra" class="text-secondary mt-5">Travel Tips</h2>
+      <dl class="mb-4">
+        <dt><strong>Best Time to Visit</strong></dt>
+        <dd>Year-round, but peak season is June to September.</dd>
+        <dd>Visit on weekdays for fewer crowds.</dd>
+
+        <dt><strong>Currency</strong></dt>
+        <dd>Local currency: <em>Paradise Dollars (PD)</em>. Major cards accepted.</dd>
+
+        <dt><strong>Language</strong></dt>
+        <dd>English and <em>Paradisean Creole</em> are common. Learn a few phrases!</dd>
+
+        <dt><strong>Weather Conditions</strong></dt>
+        <dd>Mostly sunny, occasional showers. Carry a raincoat or umbrella.</dd>
+        <dd>Check the forecast before planning outdoor activities.</dd>
+      </dl>
+    </div>
+
+    <!-- Map Section -->
+    <hr class="my-4"/>
+    <div class="container">
+      <h2>Location</h2>
+      <div class="mb-3">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4607.095004257364!2d-77.32354546919177!3d25.080989763181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x892f7db93cb9b50b%3A0x4f27a6bcae38f950!2sParadise%20Island!5e0!3m2!1sen!2sin!4v1703076046252!5m2!1sen!2sin"
+                width="100%" height="300" loading="lazy" class="rounded border" title="Paradise Island Location"></iframe>
+      </div>
+
+      <p class="lead">
+        Whether you seek <i>adventure</i> or <i>relaxation</i>,
+        <strong>Paradise Island</strong> offers an unforgettable experience for every traveler.
+      </p>
+      <button onclick="showThanks()" class="btn btn-outline-primary">Thank You Message</button>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button onclick="scrollToTop()" id="topBtn" title="Go to top">↑</button>
+
+    <!-- Footer -->
+    <hr class="my-4"/>
+    <footer class="bg-dark text-white text-center p-3">
+      <p class="mb-1">&copy; 2023 Paradise Island. All rights reserved.</p>
+      <a href="tel:475674674674" class="text-light me-3">Call Us</a>
+      <a href="mailto:abc@gmail.com" class="text-light">Email Us</a>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+      function showThanks() {
+        alert("Thanks for visiting Paradise Island!");
+      }
+
+      // Scroll to top button
+      const topBtn = document.getElementById("topBtn");
+
+      window.onscroll = function () {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          topBtn.style.display = "block";
+        } else {
+          topBtn.style.display = "none";
+        }
+      };
+
+      function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+  </body>
+</html>
+
+    
